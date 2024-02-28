@@ -1,0 +1,39 @@
+name: 'my_snowflake_dbt_project'
+version: '1.0.0'
+config-version: 2
+profile: 'snowflake_demo_project'
+
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+    - "target"
+    - "dbt_modules"
+
+on-run-end:
+  - "{{ grant_all_on_schemas(schemas, 'public') }}"
+
+seeds:
+  +quote_columns: false
+
+models:
+  my_snowflake_dbt_project:
+    staging:
+      +materialized: view
+      schema: staging
+      query_tag: dbt_staging
+      snowflake_warehouse: compute_wh
+      tags: "daily"
+    marts:
+      core:
+        +materialized: table
+        query_tag: dbt_marts
+
+# Add the global variable here
+vars:
+  surrogate_key_treat_nulls_as_empty_strings: True
