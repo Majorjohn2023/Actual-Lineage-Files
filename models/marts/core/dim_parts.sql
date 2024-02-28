@@ -25,3 +25,5 @@ final as (
 select *
 from final  
 order by part_key
+
+-- adascasd
