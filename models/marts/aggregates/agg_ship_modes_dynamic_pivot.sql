@@ -20,4 +20,4 @@ select
 
 from {{ ref('fct_order_items') }}
 group by 1
--- comment
+-- comments
