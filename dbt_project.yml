@@ -1,7 +1,8 @@
-name: 'my_snowflake_dbt_project'
+name: 'tpch_project'
 version: '1.0.0'
 config-version: 2
-profile: 'snowflake_demo_project'
+
+profile: 'default'
 
 source-paths: ["models"]
 analysis-paths: ["analysis"]
@@ -10,30 +11,18 @@ data-paths: ["data"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
-target-path: "target"
-clean-targets:
-    - "target"
-    - "dbt_modules"
-
-on-run-end:
-  - "{{ grant_all_on_schemas(schemas, 'public') }}"
-
-seeds:
-  +quote_columns: false
+target-path: "target"  # Directory where dbt will store compiled SQL files and other artifacts.
+clean-targets:  # Directories dbt will clean when you run dbt clean.
+  - "target"
+  - "dbt_modules"
 
 models:
-  my_snowflake_dbt_project:
+  tpch_project:
+    # Applies to all files under models/
+    +materialized: view  # Change to 'table' if you prefer materializing as tables.
     staging:
       +materialized: view
-      schema: staging
-      query_tag: dbt_staging
-      snowflake_warehouse: compute_wh
-      tags: "daily"
-    marts:
-      core:
-        +materialized: table
-        query_tag: dbt_marts
-
-# Add the global variable here
-vars:
-  surrogate_key_treat_nulls_as_empty_strings: True
+      +schema: staging  # Prefix added to the schema, models will be in 'staging' schema.
+      tpch:
+        +schema: tpch  # Models under models/tpch will be in 'tpch' schema.
+        

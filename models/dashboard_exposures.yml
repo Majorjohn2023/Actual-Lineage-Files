@@ -1,0 +1,53 @@
+version: 2
+
+exposures:
+  - name: sales_performance_dashboard
+    type: dashboard
+    maturity: high
+    description: "This dashboard provides an overview of sales performance metrics, including total sales, average order value, and sales by region."
+    url: "http://yourcompany.bi.tool/dashboards/sales_performance"  # Update with the actual URL
+    depends_on:
+      - ref('int_monthly_revenue_growth')
+      - ref('int_customer_orders')
+      - ref('int_region_nation')
+    owner:
+      name: "Sales Analyst"
+      email: "sales.analyst@yourcompany.com"
+
+  - name: inventory_management_dashboard
+    type: dashboard
+    maturity: medium
+    description: "This dashboard tracks inventory levels, turnover rates, and supply chain efficiency."
+    url: "http://yourcompany.bi.tool/dashboards/inventory_management"
+    depends_on:
+      - ref('int_product_availability_analysis')
+      - ref('int_supplier_summary')
+      - ref('int_part_sales')
+    owner:
+      name: "Inventory Manager"
+      email: "inventory.manager@yourcompany.com"
+
+  - name: customer_insights_dashboard
+    type: dashboard
+    maturity: high
+    description: "Dashboard presenting key customer insights including segmentation, lifetime value, and order patterns."
+    url: "http://yourcompany.bi.tool/dashboards/customer_insights"
+    depends_on:
+      - ref('int_customer_segmentation')
+      - ref('int_customer_loyalty')
+    owner:
+      name: "Marketing Manager"
+      email: "marketing.manager@yourcompany.com"
+
+  - name: supplier_performance_dashboard
+    type: dashboard
+    maturity: low
+    description: "This dashboard evaluates supplier performance, lead times, and reliability."
+    url: "http://yourcompany.bi.tool/dashboards/supplier_performance"
+    depends_on:
+      - ref('int_supplier_performance')
+      - ref('int_supply_cost_analysis')
+      - ref('int_time_to_ship_analysis')
+    owner:
+      name: "Procurement Manager"
+      email: "procurement@yourcompany.com"
