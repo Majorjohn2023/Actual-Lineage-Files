@@ -20,7 +20,7 @@ from
         'RAIL',
         'MAIL',
         'SHIP',
-        'TRUCK'
+        'TRUCKS'
     )) as p 
 
 order by order_year
