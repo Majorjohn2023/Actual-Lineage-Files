@@ -9,4 +9,3 @@ SELECT
     ps_supplycost,
     ps_comment
 FROM source
---jjjgj
