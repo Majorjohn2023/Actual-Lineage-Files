@@ -15,9 +15,3 @@ target-path: "target"  # Directory where dbt will store compiled SQL files and o
 clean-targets:  # Directories dbt will clean when you run dbt clean.
   - "target"
   - "dbt_modules"
-
-  
-
-
-
-"RAWDATA_DB"."ANKITA_DEV_SCHEMA"."MY_SECOND_DBT_MODEL"
