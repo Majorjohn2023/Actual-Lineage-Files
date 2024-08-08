@@ -1,4 +1,4 @@
-name: 'tpch_project'
+name: 'tpch_project' --comment
 version: '1.0.0'
 config-version: 2
 
