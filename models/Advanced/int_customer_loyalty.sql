@@ -22,4 +22,3 @@ customer_loyalty AS (
 SELECT * FROM customer_loyalty
 
 -- this is just testingdsadcvfadsa
--sdbjf
