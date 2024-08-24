@@ -1,0 +1,18 @@
+DEFAULT:
+  target: default
+  outputs:
+    default:
+      password: *******
+      type: snowflake
+      user: ranjuramesh
+      account: rb83340.europe-west4.gcp
+      role: ACCOUNTADMIN
+      warehouse: COMPUTE_WH
+      database: RAWDATA_DB
+      schema: dbt_manas
+      threads: 5
+      client_session_keep_alive: True
+      query_tag: manas-dbt
+      connect_retries: 3
+      retry_on_database_errors: True
+      reuse_connections: True
