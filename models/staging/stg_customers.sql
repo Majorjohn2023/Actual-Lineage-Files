@@ -11,7 +11,7 @@ SELECT
     c_nationkey,
     c_phone,
     c_acctbal,
-    c_mktsegment,
+    c_mktsegment as mktsegment,
     c_comment as comment
 FROM source
 
