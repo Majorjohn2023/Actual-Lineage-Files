@@ -7,8 +7,8 @@ WITH source AS (
 SELECT
     o_orderkey,
     o_custkey,
-    o_orderstatus,
-    o_totalprice,
+    o_orderstatus as a,
+    o_totalprice as b,
     o_orderdate,
     o_orderpriority,
     o_clerk,
