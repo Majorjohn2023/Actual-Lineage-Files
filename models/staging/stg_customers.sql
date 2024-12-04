@@ -12,7 +12,7 @@ SELECT
     c_phone,
     c_acctbal,
     c_mktsegment,
-    c_comment
+    c_comment as comment
 FROM source
 
 
