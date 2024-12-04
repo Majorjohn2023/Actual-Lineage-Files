@@ -4,8 +4,8 @@ WITH source AS (
 )
 SELECT
     l_orderkey,
-    l_partkey,
-    l_suppkey,
+    l_partkey as a,
+    l_suppkey as b,
     l_linenumber,
     l_quantity,
     l_extendedprice,
