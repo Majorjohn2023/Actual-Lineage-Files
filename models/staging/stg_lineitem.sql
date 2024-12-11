@@ -18,5 +18,5 @@ SELECT
     l_receiptdate,
     l_shipinstruct,
     l_shipmode,
-    l_comment
+    l_comment as l_comment
 FROM source
