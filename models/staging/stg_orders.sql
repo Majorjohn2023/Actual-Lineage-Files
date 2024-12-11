@@ -13,5 +13,5 @@ SELECT
     o_orderpriority,
     o_clerk,
     o_shippriority,
-    o_comment
+    o_comment as o_comment
 FROM source
