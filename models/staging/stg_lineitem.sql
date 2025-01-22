@@ -1,4 +1,10 @@
 -- models/staging/stg_lineitem.sql
+{{
+    config(
+        tags = ["deactivated"]
+    )
+}}
+
 WITH source AS (
     SELECT * FROM {{ source('tpch', 'lineitem') }}
 )
