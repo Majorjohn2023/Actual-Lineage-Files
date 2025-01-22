@@ -9,7 +9,7 @@ SELECT
     c_name,
     c_address,
     c_nationkey,
-    c_phone,
+    c_phone as c_phone,
     c_acctbal as c_acctbal,
     c_mktsegment as c_mktsegment,
     c_comment as c_comment
