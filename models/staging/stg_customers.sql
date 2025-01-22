@@ -10,8 +10,8 @@ SELECT
     c_address,
     c_nationkey,
     c_phone,
-    c_acctbal,
-    c_mktsegment,
+    c_acctbal as c_acctbal,
+    c_mktsegment as c_mktsegment,
     c_comment as c_comment
 FROM source
 
