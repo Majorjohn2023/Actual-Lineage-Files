@@ -1,10 +1,4 @@
 -- models/staging/stg_lineitem.sql
-{{
-    config(
-        tags = ["deactivated"]
-    )
-}}
-
 WITH source AS (
     SELECT * FROM {{ source('tpch', 'lineitem') }}
 )
@@ -24,5 +18,5 @@ SELECT
     l_receiptdate,
     l_shipinstruct,
     l_shipmode,
-    l_comment
+    l_comment as l_comment
 FROM source

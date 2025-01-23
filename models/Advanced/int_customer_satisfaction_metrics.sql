@@ -1,3 +1,8 @@
+{{
+    config(
+        tags = ["deactivated"]
+    )
+}}
 WITH customer_feedback AS (
     SELECT
         o_custkey,
