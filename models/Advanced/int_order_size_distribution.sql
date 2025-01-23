@@ -6,7 +6,7 @@ WITH order_sizes AS (
     GROUP BY l_orderkey
 )
 SELECT
-    lineitem_count as lineitem_count,
+    lineitem_count,
     COUNT(*) AS number_of_orders
 FROM order_sizes
 GROUP BY lineitem_count
