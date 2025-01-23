@@ -1,3 +1,8 @@
+{{
+    config(
+        tags = ["deactivated"]
+    )
+}}
 WITH customer_spending AS (
     SELECT
         o_custkey,
