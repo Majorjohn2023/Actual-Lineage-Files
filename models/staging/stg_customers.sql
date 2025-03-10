@@ -14,3 +14,4 @@ SELECT
     c_mktsegment as c_mktsegment,
     c_comment as c_comment
 FROM source
+Limit {{ env_var("dbt_limit") }}
