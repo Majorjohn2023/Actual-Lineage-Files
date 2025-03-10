@@ -14,6 +14,3 @@ SELECT
     c_mktsegment as c_mktsegment,
     c_comment as c_comment
 FROM source
-
-
-
