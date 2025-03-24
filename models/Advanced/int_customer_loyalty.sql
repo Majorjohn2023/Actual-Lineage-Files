@@ -20,5 +20,5 @@ customer_loyalty AS (
     FROM customer_orders
 )
 SELECT * FROM customer_loyalty
-
+--test
 -- this is just testingdsadcvfadsa
