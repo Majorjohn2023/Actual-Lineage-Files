@@ -15,7 +15,7 @@ def get_top_stories():
     else:
         return []
 
-# Example usage
+# Example usagee
 top_stories = get_top_stories()
 print(f"The current top {len(top_stories)} stories on Hacker News are:")
 for story_id in top_stories:
