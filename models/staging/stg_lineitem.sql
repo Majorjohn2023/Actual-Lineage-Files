@@ -16,7 +16,7 @@ SELECT
     l_shipdate,
     l_commitdate,
     l_receiptdate,
-    l_shipinstruct,
-    l_shipmode,
-    l_comment
+    l_shipinstruct as l_shipinstruct,
+    l_shipmode as l_shipmode,
+    l_comment as l_comment
 FROM source
