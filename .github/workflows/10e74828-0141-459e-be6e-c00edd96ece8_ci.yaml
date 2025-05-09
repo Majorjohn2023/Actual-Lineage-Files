@@ -13,7 +13,7 @@ jobs:
     - name: Check for DBT_TOKEN Secret
       run: |
         if [ -z "${{ secrets.DBT_TOKEN }}" ]; then
-          echo "::error::DBT_TOKEN secret is not set. Please create Authorisation token at 5x DBT UI -> Project Settings -> Access tokens -> Create token and add it in Github secrets"
+          echo "::error::DBT_TOKEN secret is not set. Please create Authorization token at 5X DBT UI -> Project Settings -> Access tokens -> Create token and add it in GitHub secrets"
           exit 1
         fi
     - name: Trigger CI Jobs and Check Status
@@ -21,18 +21,19 @@ jobs:
       run: |
         PR_NUMBER=${{ github.event.pull_request.number }}
         BRANCH_NAME=${{ github.head_ref }}
-        response=$(curl -s -o response.json -w "%{http_code}" -H "Authorization: ApiKey ${{ secrets.DBT_TOKEN }}" "https://qadbt.5x.co/projects/v1/a4e110fa-ce1d-4e99-ba23-5d62fd3640c5/jobs/ci/$PR_NUMBER/$BRANCH_NAME/run")
-        if [ "$response" -eq 200 ]; then
+        JSON_PAYLOAD=$(echo "{\"prId\":\"$PR_NUMBER\",\"branchName\":\"$BRANCH_NAME\"}")
+        HTTP_STATUS=$(curl -s -o response.json -w "%{http_code}" -X POST -H "Content-Type: application/json" -H "Authorization: ${{ secrets.DBT_TOKEN }}" -d "$JSON_PAYLOAD" "https://apinextgen-staging.5x.co/workflows/v1/10e74828-0141-459e-be6e-c00edd96ece8/ci/runs")
+        if [ "$HTTP_STATUS" -eq 200 ]; then
           run_ids_json=$(cat response.json)
           echo "Triggered Jobs, Run IDs: $run_ids_json"
           echo "Proceeding with polling the run status"
           POLL_INTERVAL=60 # Poll every 60 seconds
-          MAX_ATTEMPTS=30  # Maximum attempts
+          MAX_ATTEMPTS=60  # Maximum attempts
           attempt=0
           all_jobs_status="waiting"
           while [ $attempt -lt $MAX_ATTEMPTS ] && [ "$all_jobs_status" == "waiting" ]; do
             echo "Checking status of all jobs (attempt $((attempt+1))/$MAX_ATTEMPTS)..."
-            all_jobs_status=$(curl -s -H "Authorization: ApiKey ${{ secrets.DBT_TOKEN }}" -X POST -H "Content-Type: application/json" -d "$run_ids_json" "https://qadbt.5x.co/projects/v1/a4e110fa-ce1d-4e99-ba23-5d62fd3640c5/jobs/job-status")
+            all_jobs_status=$(curl -s -H "Authorization: ${{ secrets.DBT_TOKEN }}" -X POST -H "Content-Type: application/json" -d "$run_ids_json" "https://apinextgen-staging.5x.co/workflows/v1/10e74828-0141-459e-be6e-c00edd96ece8/runs/run-status")
             if [ "$all_jobs_status" == 'failed' ]; then
               echo "::error::At least one job failed"
               exit 1
@@ -49,14 +50,14 @@ jobs:
           fi
         else
           response_content=$(cat response.json)
-          echo "Failed to trigger jobs, HTTP status: $response, Response: $response_content"
+          echo "Failed to trigger jobs, HTTP status: $HTTP_STATUS, Response: $response_content"
           exit 1
         fi
     - name: Handle PR Merge
       if: github.event_name == 'pull_request_target' && github.event.action == 'closed' && github.event.pull_request.merged == true
       run: |
         PR_NUMBER=${{ github.event.pull_request.number }}
-        curl --location --request DELETE "https://qadbt.5x.co/projects/v1/a4e110fa-ce1d-4e99-ba23-5d62fd3640c5/jobs/ci/$PR_NUMBER" --header "Authorization: ApiKey ${{ secrets.DBT_TOKEN }}"
+        curl --location --request DELETE "https://apinextgen-staging.5x.co/projects/v1/10e74828-0141-459e-be6e-c00edd96ece8/jobs/ci/$PR_NUMBER" --header "Authorization: ${{ secrets.DBT_TOKEN }}"
     - name: Handle PR Closure Without Merge
       if: github.event_name == 'pull_request_target' && github.event.action == 'closed' && github.event.pull_request.merged == false
       run: |
